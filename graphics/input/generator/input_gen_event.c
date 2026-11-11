@@ -159,6 +159,7 @@ input_gen_single_finger(FAR struct touch_point_s *point,
                   finger->move_duration + finger->x1;
       int16_t y = ((int64_t)(finger->y2 - finger->y1) * elapsed) /
                   finger->move_duration + finger->y1;
+
       input_gen_fill_point(point, x, y, TOUCH_MOVE);
 
       return false;
@@ -292,6 +293,7 @@ static int input_gen_motion(input_gen_ctx_t ctx,
   do
     {
       uint32_t elapsed = input_gen_tick_elapsed(input_gen_tick_get(), start);
+
       ret = input_gen_write_motion(dev->fd, fingers, nfingers, elapsed);
       if (ret == -EAGAIN && usleep(8 * 1000) < 0)
         {
